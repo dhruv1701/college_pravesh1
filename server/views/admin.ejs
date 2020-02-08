@@ -1,0 +1,87 @@
+<!<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset='utf-8'> 
+        <title>Admin Panel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+
+    <body class="centered-form">
+        <div class="centered-form__form" style="width:85%;">
+            <%docs.forEach((doc) => { %>
+            <div class="form-field">
+                <h3><%=doc.ranking + ' ' + doc.site%></h3>
+                <%doc.stats.forEach((stat) => {%>
+                    <%=stat.name + ':' + stat.value%>, 
+                <%})%>
+            </div>
+            <% });%>
+        </div>
+    </body>
+
+    <body class="centered-form">
+            <div class="centered-form__form" style="width:85%;">
+                <form id="removeRanking" action="#">
+                        <div class="form-field">
+                            <h3>Remove Site</h3>
+                        </div>
+                        <div class="form-field">
+                            Site:
+                            <input type="text" name="siteRemove"><br>
+                        </div>
+                        <div class="form-field">
+                                <button>Submit</button>
+                            </div>        
+                </form> 
+            </div>
+    </body>   
+
+    <body class="centered-form">
+        <div class="centered-form__form" style="width:85%;">
+            <form id="insertRanking" action="#">
+                    <div class="form-field">
+                        <h3>Add/Update Site</h3>
+                    </div>
+                    <div class="form-field">
+                        Site:
+                        <input type="text" name="site"><br>
+                    </div>
+
+                    <div class="form-field">
+                            Ranking:
+                        <input type="number" name="ranking"><br>
+                    </div>
+
+                    <div class="form-field">
+                            Description
+                        <input type="text" name="description">
+                    </div>
+
+                    <div class="form-field">
+                            imgURL
+                        <input type="text" name="imgUrl">
+                    </div>
+
+                    <div class="form-field" name="stats-form">
+                        Stats <br>
+                        <input type="text" name="key" placeholder="name" style="width: 45%"><input type="number" name="value" placeholder='value' style="width: 45%"><br>        
+                    </div>
+                    <button id=addStat>More Stats</button>
+
+                    <div class="form-field">
+                        <button>Submit</button>
+                    </div>
+
+                </div>
+                    <!-- <input type="text" name="key1" placeholder='key'>
+                    <input type="number" name="value1" placeholder='value'><br>
+                    <button>Add Attribute</button><br>
+                    Submit Ranking:
+                    <input type="Submit" name="Add">         -->
+                </form>                
+            <script src='/js/libs/jquery.js'></script>
+            <!-- <script src='/socket.io/socket.io.js'></script>             -->
+            <script src='/js/admin.js'></script>
+        </body>
+</html>
