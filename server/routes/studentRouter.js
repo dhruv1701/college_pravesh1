@@ -1,16 +1,15 @@
 const jwt = require('jsonwebtoken');
 var express = require('express');
-var adminRouter = express.Router();
+var studentRouter = express.Router();
 var _ = require('lodash');
 var {Admin} = require('./../models/admin');
 var {Ranking} = require('./../models/ranking');
 
 var router = () => {
 
-    adminRouter.route('/signUp')
+    studentRouter.route('/signUp')
         .post(async (req, res) => {
-            console.log("inside");
-            let body = _.pick(req.body,['username','password','usertype']);
+            let body = _.pick(req.body,['username','password']);
             let newAdmin = Admin(body);
             try {
                 let user = await newAdmin.save();
@@ -20,7 +19,7 @@ var router = () => {
             }
         });
     
-    adminRouter.route('/login')
+    studentRouter.route('/login')
 
         // Get /admin/login
         // renders login page login.ejs
@@ -42,7 +41,7 @@ var router = () => {
         });
 
     // authenticate user
-    adminRouter.use(async (req, res, next) => {
+    studentRouter.use(async (req, res, next) => {
         try {
             // if successfully decoded, move on
             var decoded = await jwt.verify(req.session.token, process.env.JWT_SECRET);
@@ -55,12 +54,12 @@ var router = () => {
         }
     });
 
-    adminRouter.route('/')
+    studentRouter.route('/')
         .get(async (req, res) => {
             res.render('admin', {docs: await Ranking.getAll()});
         })
 
-    adminRouter.route('/check')
+    studentRouter.route('/check')
         .get((req, res) => {
             if (req.session && req.session.token) {
                 res.send('session token exists!');
@@ -68,7 +67,7 @@ var router = () => {
             res.send(404);
         });
 
-    adminRouter.post('/create', async (req, res) => {
+    studentRouter.post('/create', async (req, res) => {
         let body = _.pick(req.body, ['site', 'stats', 'imgUrl', 'ranking', 'description']);
         let newDoc = Ranking(body);
         try {
@@ -79,7 +78,7 @@ var router = () => {
         }
     });
 
-    adminRouter.post('/remove', async (req, res) => {
+    studentRouter.post('/remove', async (req, res) => {
         try {
             // console.log(req.body.site.trim());
             Ranking.removeSite(req.body.site.trim());
@@ -90,7 +89,7 @@ var router = () => {
     });
 
 
-    adminRouter.post('/update', async (req, res) => {
+    studentRouter.post('/update', async (req, res) => {
         var {site, stats, imgUrl, ranking, description} = req.body;
         console.log(req.body);
         if (!site) return res.status(400).send();
@@ -116,7 +115,7 @@ var router = () => {
             res.sendStatus(400);
         }
     });
-    return adminRouter;
+    return studentRouter;
 };
 
 module.exports = router;

@@ -21,7 +21,10 @@ var AdminSchema = new mongoose.Schema( {
             type: String,
             required: true
         }
-    }]
+    }],
+    usertype: {
+        type: String
+    }
 },
 { usePushEach: true }
 );
