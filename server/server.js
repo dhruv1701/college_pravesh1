@@ -64,6 +64,10 @@ app.get("/signup",async (req,res) => {
 app.get("/forum",async(req,res) =>{
   res.render("forum")
 })
+
+app.post("/forum-data",async(req,res) => {
+  
+})
 // default error page
 app.use((req, res) => {
   res.status(404).render("error", {
