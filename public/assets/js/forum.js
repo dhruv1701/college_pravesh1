@@ -5,7 +5,7 @@ var newInput = () =>{
     var label = document.createElement("LABEL");
     var button = document.createElement("BUTTON");
     //console.log(document.getElementById("user_name").innerHTML);
-    label.innerHTML=document.getElementById("user_name").innerHTML;
+    label.innerHTML=$("#user_name").val();
     button.innerHTML="SUBMIT";
     inp1.setAttribute("type", "text");
     
